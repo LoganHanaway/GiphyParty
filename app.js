@@ -4,14 +4,9 @@ const $search = $("#search");
 const $remove = $("#remove");
 const $resultsContainer = $("#resultsContainer");
 
-// function to get the search term
-function getSearchTerm() {
-  const query = $("#userInput").val();
-  return query;
-}
-
-// function to submit the search
+// function to submit the search and append to the results container
 async function submitSearch() {
+  const query = $("#userInput").val();
   const res = await axios.get(
     `https://api.giphy.com/v1/gifs/search?api_key=1tRxIpVB1wcaQmqPHwrOlSlxFlL97g14&q=${query}&limit=1&offset=0&rating=g&lang=en&bundle=messaging_non_clips`
   );
@@ -24,9 +19,10 @@ async function submitSearch() {
   $(gif).appendTo(card).appendTo($resultsContainer);
 }
 
-// function to apend search result to container
-
-function appendResults() {}
+// function ro remove all results
+function removeResults() {
+  $("#resultsContainer").innerHTML("");
+}
 
 // adding event listeners
 
@@ -37,4 +33,5 @@ $search.on("click", function (e) {
 
 $remove.on("click", function (e) {
   e.preventDefault();
+  removeResults();
 });
