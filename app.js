@@ -13,28 +13,23 @@ async function submitSearch() {
   console.log(res);
 
   // appending each gif to the resultsContainer
-  const url = res.data.data[0].embed_url;
+  const url = res.data.data[0].images.fixed_height.url;
   const card = document.createElement("div");
-  $(card).attr("class", "card");
+  $(card).attr("class", "card").attr("class", "col");
   const gif = document.createElement("img");
   $(gif).attr("src", url);
-  $(gif).appendTo(card).appendTo($resultsContainer);
+  $(gif).css({ width: "200px", height: "200px" });
+  $(card).append(gif);
+  $resultsContainer.append(card);
 
-  // addevents to each for removal
+  // add events to each gif for removal on click of remove btn
 
   $(document).on("click", "#remove", function () {
     gif.remove();
   });
 }
 
-// adding event listeners
-
 $search.on("click", function (e) {
   e.preventDefault();
   submitSearch();
 });
-
-// $remove.on("click", function (e) {
-//   e.preventDefault();
-//   removeResults();
-// });
