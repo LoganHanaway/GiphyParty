@@ -11,17 +11,20 @@ async function submitSearch() {
     `https://api.giphy.com/v1/gifs/search?api_key=1tRxIpVB1wcaQmqPHwrOlSlxFlL97g14&q=${query}&limit=1&offset=0&rating=g&lang=en&bundle=messaging_non_clips`
   );
   console.log(res);
+
+  // appending each gif to the resultsContainer
   const url = res.data.data[0].embed_url;
   const card = document.createElement("div");
   $(card).attr("class", "card");
   const gif = document.createElement("img");
   $(gif).attr("src", url);
   $(gif).appendTo(card).appendTo($resultsContainer);
-}
 
-// function ro remove all results
-function removeResults() {
-  $("#resultsContainer").innerHTML("");
+  // addevents to each for removal
+
+  $(document).on("click", "#remove", function () {
+    gif.remove();
+  });
 }
 
 // adding event listeners
@@ -31,7 +34,7 @@ $search.on("click", function (e) {
   submitSearch();
 });
 
-$remove.on("click", function (e) {
-  e.preventDefault();
-  removeResults();
-});
+// $remove.on("click", function (e) {
+//   e.preventDefault();
+//   removeResults();
+// });
